@@ -1,5 +1,6 @@
+
 import './App.css';
-import { fetchRequest, deleteUser } from './utils';
+import { fetchRequest, deleteUser, tokenFetch } from './utils';
 import React from 'react';
 
 function App() {
@@ -9,6 +10,10 @@ function App() {
   const [email, setEmail] = React.useState();
   const [password, setPassword] = React.useState();
   const [deletedUser, setDeletedUser] = React.useState();
+
+  React.useEffect(() => {
+    tokenFetch(setUser)
+  }, [])
 
   const handleSubmit = (e) => {
     e.preventDefault();

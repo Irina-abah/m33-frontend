@@ -11,6 +11,8 @@ export const fetchRequest = async (setUser, name, email, password) => {
       })
     })
     const data = await response.json();
+    setUser(data.user);
+    localStorage.setItem("myToken", data.token);
     console.log(data)
   } catch (error) {
     console.log(error)
@@ -27,6 +29,20 @@ export const deleteUser = async (user) => {
       if (deletedUser) {
         console.log("user was deleted")
       }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const tokenFetch = async (setUser) => {
+  try {
+    const token = localStorage.getItem("myToken");
+    const response = await fetch(`${process.env.REACT_APP_REST_API}/token`, {
+      method: "GET",
+      headers: { "Authorization": `Bearer ${token}` }
+    });
+    const data = await response.json();
+    setUser(data.user)
   } catch (error) {
     console.log(error)
   }
